@@ -7,7 +7,6 @@ $form = $this->beginWidget('CActiveForm', array(
 ?>
 <div class="block">
     <div class="alert alert_grey">
-        <img height="24" width="24" src="<?php echo Yii::app()->params['backendUrl']; ?>/images/icons/small/grey/alert_2.png">
         Fields with <span class="required"><strong>*</strong></span> are required.
     </div>
 
@@ -22,19 +21,39 @@ $form = $this->beginWidget('CActiveForm', array(
     <div class="input_group">
         <?php echo $form->labelEx($model, 'page_content'); ?>
         <?php
-        $this->widget('application.extensions.ckeditor.CKEditor', array(
-            "model" => $model, # Data-Model
-            "attribute" => 'page_content',
-            "width" => '100%',
-            "toolbar" => "Basic",
-                )
-        );
+        $this->widget('ext.redactor.ImperaviRedactorWidget', array(
+    // you can either use it for model attribute
+    'model' => $model,
+    'attribute' => 'page_content',
+    'options' => array('imageUpload' => $this->createUrl('upload')),
+    // or just for input field
+//    'name' => 'my_input_name',
+//
+//    // some options, see http://imperavi.com/redactor/docs/
+//    'options' => array(
+//        'lang' => 'ru',
+//        'toolbar' => false,
+//        'iframe' => true,
+//        'css' => 'wym.css',
+//    ),
+));
+//        $this->widget('application.extensions.ckeditor.CKEditor', array(
+//            "model" => $model, # Data-Model
+//            "attribute" => 'page_content',
+//            "width" => '100%',
+//            "toolbar" => "Basic",
+//                )
+//        );
         ?>
         <?php //echo $form->error($model, 'page_content'); ?>
     </div>
-
-    <button class="button_colour round_all"><img height="24" width="24" alt="Bended Arrow Right" src="<?php echo Yii::app()->params['backendUrl']; ?>/images/icons/small/white/bended_arrow_right.png"><span><?php echo ($model->isNewRecord) ? 'Create' : 'Save'; ?></span></button>
-
+<?php
+$this->widget('zii.widgets.jui.CJuiButton', array(
+    'name' => 'disable',
+    'caption' => ($model->isNewRecord) ? 'Create' : 'Save',
+    'htmlOptions' => array('class' => 'btn-primary')));
+?>
+    
 </div>
 
 <?php $this->endWidget(); ?>

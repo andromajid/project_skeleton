@@ -1,6 +1,6 @@
 <?php
 
-class DefaultController extends adminController {
+class DefaultController extends Controller {
 
     public function actionIndex() {
         $this->render('index');

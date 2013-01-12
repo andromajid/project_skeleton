@@ -45,6 +45,8 @@ return array(
             'urlFormat' => 'path',
             'showScriptName'=>false,
             'rules' => array(
+                'login' => 'admin/default/login',
+                'logout' => 'admin/default/logout',
                 '<module:\w+>/<controller:\w+>/<action:\w+>/*' => '<module>/<controller>/<action>',
                 '<module:\w+>/<controller:\w+>/<action:\w+>' => '<module>/<controller>/<action>',
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',

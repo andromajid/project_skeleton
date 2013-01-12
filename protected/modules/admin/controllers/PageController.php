@@ -2,7 +2,6 @@
 
 class PageController extends adminController {
 
-
     /**
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed
@@ -31,21 +30,21 @@ class PageController extends adminController {
             $model->attributes = $_POST['site_page'];
             if ($model->save())
                 $page_id = $model->page_id;
-                $order_by = Yii::app()->db->createCommand()
+            $order_by = Yii::app()->db->createCommand()
                     ->select('menu_order_by')
                     ->from('site_menu')
                     ->order('menu_order_by DESC')
                     ->queryScalar();
-            
-                $menu->menu_order_by = $orderby+1;
-                $menu->menu_title = $_POST['site_page']['page_title'];
-                $menu->menu_description = "Page Generator - " . $_POST['site_page']['page_title'];
-                $menu->menu_link = "page/" . $page_id;
-                $menu->menu_is_active = 1;
-                $menu->menu_location = 'user';
 
-                $menu->save();
-                $this->redirect(array('list'));
+            $menu->menu_order_by = $orderby + 1;
+            $menu->menu_title = $_POST['site_page']['page_title'];
+            $menu->menu_description = "Page Generator - " . $_POST['site_page']['page_title'];
+            $menu->menu_link = "page/" . $page_id;
+            $menu->menu_is_active = 1;
+            $menu->menu_location = 'user';
+
+            $menu->save();
+            $this->redirect(array('list'));
         }
 
         $this->render('create', array(
@@ -66,8 +65,10 @@ class PageController extends adminController {
 
         if (isset($_POST['site_page'])) {
             $model->attributes = $_POST['site_page'];
-            if ($model->save())
+            if ($model->save()) {
+                Yii::app()->user->setFlash('success', 'Halaman ' . $model->page_title . ' berhasil di ubah');
                 $this->redirect(array('update', 'id' => $model->page_id));
+            }
         }
 
         $this->render('update', array(
@@ -138,6 +139,12 @@ class PageController extends adminController {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
+    }
+
+    public function actionUpload() {
+        //echo stripcslashes(json_encode($_FILES));
+        $_FILES['file']['type'] = strtolower($_FILES['file']['type']);
+        $uploadedFile = CUploadedFile::getInstanceByName('file');
     }
 
 }
