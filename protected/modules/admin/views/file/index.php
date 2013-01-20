@@ -1,7 +1,1 @@
-<?php
-// ElFinder widget
-$this->widget('ext.elfinder.ElFinderWidget', array(
-        'connectorRoute' => 'file/connector',
-        )
-);
-?>
+<iframe width="100%" height="1000px" src="<?php echo $this->createUrl('/admin/file/frame');?>" />

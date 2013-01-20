@@ -40,7 +40,10 @@ class FileController extends adminController {
     public function actionIndex() {
         $this->render('index');
     }
-
+    public function actionFrame() {
+        $this->layout = '//layouts/frame';
+        $this->render('frame');
+    }
 }
 
 ?>

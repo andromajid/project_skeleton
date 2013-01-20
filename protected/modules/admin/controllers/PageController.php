@@ -143,8 +143,18 @@ class PageController extends adminController {
 
     public function actionUpload() {
         //echo stripcslashes(json_encode($_FILES));
-        $_FILES['file']['type'] = strtolower($_FILES['file']['type']);
-        $uploadedFile = CUploadedFile::getInstanceByName('file');
+        $extension_mime = array('image/jpg', 'image/png', 'image/jpeg', 'image/gif');
+        $file_type = strtolower($_FILES['file']['type']);
+        if (in_array($file_type, $extension_mime)) {
+            $uploadedFile = CUploadedFile::getInstanceByName('file');
+            if($uploadedFile->saveAs(Yii::app()->basePath.'/images/'.$uploadedFile->getName())) {
+                echo stripslashes(json_encode(array('filelink' => Yii::app()->baseUrl.'/images/'.$uploadedFile->getName())));
+            }
+        }
+    }
+
+    public function actionGetjson() {
+        
     }
 
 }
