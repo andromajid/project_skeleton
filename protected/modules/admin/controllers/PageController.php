@@ -147,6 +147,8 @@ class PageController extends adminController {
         $file_type = strtolower($_FILES['file']['type']);
         if (in_array($file_type, $extension_mime)) {
             $uploadedFile = CUploadedFile::getInstanceByName('file');
+            var_dump(Yii::app()->basePath.'/images/'.$uploadedFile->getName());
+            die();
             if($uploadedFile->saveAs(Yii::app()->basePath.'/images/'.$uploadedFile->getName())) {
                 echo stripslashes(json_encode(array('filelink' => Yii::app()->baseUrl.'/images/'.$uploadedFile->getName())));
             }

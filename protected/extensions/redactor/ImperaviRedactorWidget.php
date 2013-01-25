@@ -33,7 +33,7 @@ class ImperaviRedactorWidget extends CInputWidget
 	 * rendered by this widget.
 	 */
 	public $selector;
-
+        public $elfinder = false;
 	/**
 	 * @var array
 	 */
@@ -149,4 +149,10 @@ class ImperaviRedactorWidget extends CInputWidget
 	{
 		return $this->_plugins;
 	}
+        /**
+         * buat upload elfinder
+         */
+        public function elfinder() {
+            
+        }
 }

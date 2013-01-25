@@ -8,9 +8,7 @@ $this->breadcrumbs = array(
 $this->menu = array();
 
 //action create
-if (isset($this->action_create)) {
-    array_push($this->menu, array('label' => 'Create Page', 'url' => array('create')));
-}
+array_push($this->menu, array('label' => 'Create Page', 'url' => array('create')));
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
